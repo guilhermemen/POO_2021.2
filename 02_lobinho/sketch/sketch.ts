@@ -64,6 +64,18 @@ function preload() {
     board_image = loadImage('../sketch/grama.jpg');
 }
 
+//function rabbitloop() {
+//      if(rabbit.x == nc){
+//        rabbit.x = 0;
+//    }if(rabbit.y == nl){
+//        rabbit.y = 0;
+//    }if(rabbit.x == - 1){
+//        rabbit.x = nc - 1;
+//    }if(rabbit.y == - 1){
+//        rabbit.y = nl - 1;
+//    }
+// }
+
 function keyPressed(){
     if(keyCode === LEFT_ARROW){
         wolf.x--;
@@ -77,16 +89,16 @@ function keyPressed(){
 
     if(keyCode === "A".charCodeAt(0)){
         rabbit.x--;
-      //  rabbit.y++;
+    //    rabbit.y = 0;
     }else if(keyCode === "D".charCodeAt(0)) {
         rabbit.x++;
-      //  rabbit.y--;
+    //  rabbit.y = 0;
     }else if(keyCode === "W".charCodeAt(0)) {
         rabbit.y--;
-        //rabbit.x++;
+    //   rabbit.x = 0;
     }else if(keyCode === "S".charCodeAt(0)) {
         rabbit.y++;
-       // rabbit.x--;
+    //   rabbit.x = 0;
     }
 }
 
@@ -102,4 +114,5 @@ function draw(){
     board.draw();
     wolf.draw();
     rabbit.draw();
+//    rabbitloop();
 } 
