@@ -1,91 +1,148 @@
-const NL = 15
-const NC = 15
-const LADO = 20;
-
-class Cell {
+class Bubble{
   x: number;
   y: number;
-  color: p5.Color;
-  constructor(x: number, y: number, color: p5.Color) {
-    this.x = x;
-    this.y = y;
-    this.color = color;
+  letter: string;
+  speed: number;
+
+  static radius: number = 20;
+  alive: boolean = true;
+
+  constructor(x: number, y: number, letter: string, speed: number){
+    this.x = x; 
+    this.y = y; 
+    this.letter = letter;
+    this.speed = speed;
+  }
+
+  update(): void {
+    this.y += this.speed;
+  }
+
+  draw(): void {
+    fill(255);
+    stroke(255);
+    circle(this.x, this.y, 2 * Bubble.radius);
+    fill(0);
+    stroke(0);
+    textSize(20);
+    text(this.letter, this.x - 5, this.y + 5)
   }
 }
 
-class Snake {
-  body: Cell;
-  vx: number;
-  vy: number;
-  constructor() {
-    this.body = new Cell(0, 0, color("red"));
-    this.vx = 1;
-    this.vy = 0;
+class Board{
+    bubbles: Bubble[] = [];
+    timeOut: number = 30;
+    timer: number = 0;
+    constructor(){
+      this.bubbles = [new Bubble(100,100, "a", 1)];
+      this.bubbles.push(new Bubble(200,100, "b", 2));
+      this.bubbles.push(new Bubble(300,100, "c", 3));
+    }
+
+    update(): void {
+        this.checkBubbleTime();
+        this.marcOutsideBubblue();
+
+        for (let bubble of this.bubbles) {
+          bubble.update();
+        }
+        this.removeBubbles();
+    }
+
+    removeBubbles(): void {
+     this.bubbles = this.bubbles.filter(b => b.alive);
+    }
+
+    removeByHit(code: number): void {
+      for(let bubble of this.bubbles){
+        if(bubble.letter[0].toUpperCase.charCodeAt(0) == code){
+          bubble.alive = false;
+          break;
+      }
+    }
+
+    checkBubbleTime() : void {
+     this.timer -=1;
+
+      if (this.timer <= 0) {
+        this.addBubble();
+        this.timer = this.timeOut;
+      }
   }
+
+  marcOutsideBubblue() : void{
+      for(let bubble of this.bubbles) {
+        if(bubble.y + 2 * Bubble.radius >= height) {
+          bubble.alive = false;
+        }
+      }
+  }
+
+    addBubble(): void {
+      let x = random(0, width - 2 * Bubble.radius);
+      let y = -2 * Bubble.radius;
+
+      let letter = random(["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s",
+      "t","u","v","w","x","y","z"],);
+      let speed = random(1, 5);
+      let bubble = new Bubble(x, y, letter, speed);
+      this.bubbles.push(bubble);
+  }
+
+    draw(): void {
+        stroke("white");
+        fill("white");
+        textSize(30);
+        text("Ativas: " + this.bubbles.length, 30, 30);
+        for(let bubble of this.bubbles){
+          bubble.draw();
+        }
+    }
 }
 
-let snake: Snake;
-let cell_color: p5.Color;
-let timer = 0;
+class Game{
+    board: Board;
 
-function setup() {
-  createCanvas(NC*LADO, NL*LADO);
+    activeFunction:() => void;
+
+    constructor(){
+        this.board = new Board();
+        this.activeFunction = this.gamePlay;
+    }
+
+    gamePlay(): void {
+      this.board.update();
+      background(70,70,70)
+      this.board.draw();
+
+    //  if (random(50) < 1) {
+    //    this.activeFunction = this.gameOver
+    //  }
+    }
+
+    gameOver(): void {
+      background(0,100,0);
+      fill(0);
+      textSize(100);
+      text("Game Over", 50, 300);
+    }
+}
+
+let game: Game;
+
+function setup(){
+  createCanvas(500, 600);
   frameRate(30);
-  cell_color = color(20);
-  snake = new Snake();
+  game = new Game();
 }
 
 function keyPressed(){
-  if (keyCode === LEFT_ARROW) {
-    snake.vx = -1;
-    snake.vy = 0;
-  } else if (keyCode === RIGHT_ARROW) {
-    snake.vx = 1;
-    snake.vy = 0;
-  } else if (keyCode === UP_ARROW) {
-    snake.vx = 0;
-    snake.vy = -1;
-  } else if (keyCode === DOWN_ARROW) {
-    snake.vx = 0;
-    snake.vy = 1;
-  }
-}
-
-function draw_cell(cell: Cell){
-  noStroke();
-  fill(cell.color)
-  square(cell.x * LADO + 0.3, cell.y * LADO + 0.3, LADO - 0.3);
-}
-
-function draw_mat(){
-  for(let c=0; c<NC; c++)
-    for(let l=0;l<NL;l++)
-      draw_cell(new Cell(c,l,cell_color));
-}
-
-function snake_loop() {
-  if(snake.body.x==NC)
-    snake.body.x=0;
-  if (snake.body.y==NL)
-    snake.body.y=0
-  if (snake.body.x==-1)
-    snake.body.x=NC-1;
-  if (snake.body.y==-1)
-    snake.body.y=NL-1;
-}
-
-function snake_walk(){
-  if (frameCount - timer > 5) {
-    timer = frameCount; 
-    snake.body.x += snake.vx; 
-    snake.body.y += snake.vy;
-  }
+  game.board.removeByHit(keyCode);
 }
 
 function draw(){
-  snake_walk();
-  snake_loop();
-  background(220);
-  draw_mat();
-  draw_cell(snake.body);
+  game.activeFunction();
 }
+
+
+
