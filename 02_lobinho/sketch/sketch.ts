@@ -65,14 +65,14 @@ function preload() {
 }
 
 //function rabbitloop() {
-//      if(rabbit.x == nc){
+//      if(rabbit.x == Board.nc){
 //        rabbit.x = 0;
-//    }if(rabbit.y == nl){
+//    }if(rabbit.y == Board.nl){
 //        rabbit.y = 0;
 //    }if(rabbit.x == - 1){
-//        rabbit.x = nc - 1;
+//        rabbit.x = Board.nc - 1;
 //    }if(rabbit.y == - 1){
-//        rabbit.y = nl - 1;
+//        rabbit.y = Board.nl - 1;
 //    }
 // }
 
