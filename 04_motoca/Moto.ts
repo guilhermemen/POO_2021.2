@@ -82,9 +82,14 @@ let moto = new Motocycles(2);
 console.log(moto.toString());
 moto.in(new Person(2,"Marcos"));
 console.log(moto.toString())
+
 moto.out();
 moto.in(new Person(4, "Márcio"));
 moto.honk()
 console.log(moto.toString());
+moto.out()
+console.log(moto.toString());
+
 moto.in(new Person(12, "Roberta"));
+moto.drive(12);
 console.log(moto.toString());
