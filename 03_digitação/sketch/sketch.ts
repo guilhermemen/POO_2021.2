@@ -82,8 +82,8 @@ class Board{
       let x = random(0, width - 2 * Bubble.radius);
       let y = -2 * Bubble.radius;
 
-      let letter = random(["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s",
-      "t","u","v","w","x","y","z"],);
+      let letter = random(["a","b","c","d","e","f","g","h","i","j"
+      ,"k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],);
       let speed = random(1, 5);
       let bubble = new Bubble(x, y, letter, speed);
       this.bubbles.push(bubble);
