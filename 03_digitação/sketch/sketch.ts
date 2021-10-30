@@ -20,7 +20,7 @@ class Bubble{
 
   draw(): void {
     fill(255);
-    stroke(255);
+    stroke(200);
     circle(this.x, this.y, 2 * Bubble.radius);
     fill(0);
     stroke(0);
@@ -28,11 +28,15 @@ class Bubble{
     text(this.letter, this.x - 5, this.y + 5)
   }
 }
-
+ 
 class Board{
     bubbles: Bubble[] = [];
-    timeOut: number = 30;
+    timeout: number = 30;
     timer: number = 0;
+
+    hit = 0;
+    mistakes = 0;
+
     constructor(){
       this.bubbles = [new Bubble(100,100, "a", 1)];
       this.bubbles.push(new Bubble(200,100, "b", 2));
@@ -43,9 +47,8 @@ class Board{
         this.checkBubbleTime();
         this.marcOutsideBubblue();
 
-        for (let bubble of this.bubbles) {
+        for (let bubble of this.bubbles) 
           bubble.update();
-        }
         this.removeBubbles();
     }
 
@@ -55,28 +58,30 @@ class Board{
 
     removeByHit(code: number): void {
       for(let bubble of this.bubbles){
-        if(bubble.letter[0].toUpperCase.charCodeAt(0) == code){
+        if(bubble.letter[0].toUpperCase().charCodeAt(0) == code){
           bubble.alive = false;
+          this.hit++;
           break;
       }
     }
+  }
 
-    checkBubbleTime() : void {
-     this.timer -=1;
-
+    checkBubbleTime(): void {
+      this.timer -= 1;
       if (this.timer <= 0) {
         this.addBubble();
-        this.timer = this.timeOut;
+        this.timer = this.timeout;
       }
-  }
+    }
 
-  marcOutsideBubblue() : void{
-      for(let bubble of this.bubbles) {
-        if(bubble.y + 2 * Bubble.radius >= height) {
-          bubble.alive = false;
+    marcOutsideBubblue(): void {
+      for (let bubble of this.bubbles) {
+        if (bubble.y + Bubble.radius >= height) {
+            bubble.alive = false;
+            this.mistakes++;
         }
       }
-  }
+    }
 
     addBubble(): void {
       let x = random(0, width - 2 * Bubble.radius);
@@ -85,6 +90,7 @@ class Board{
       let letter = random(["a","b","c","d","e","f","g","h","i","j"
       ,"k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],);
       let speed = random(1, 5);
+
       let bubble = new Bubble(x, y, letter, speed);
       this.bubbles.push(bubble);
   }
@@ -93,7 +99,7 @@ class Board{
         stroke("white");
         fill("white");
         textSize(30);
-        text("Ativas: " + this.bubbles.length, 30, 30);
+        text("hits: " + this.hit + "Mistakes: " + this.bubbles.length, 30, 30);
         for(let bubble of this.bubbles){
           bubble.draw();
         }
@@ -115,15 +121,15 @@ class Game{
       background(70,70,70)
       this.board.draw();
 
-    //  if (random(50) < 1) {
-    //    this.activeFunction = this.gameOver
-    //  }
+      if (this.board.mistakes > 10) {
+        this.activeFunction = this.gameOver
+      }
     }
 
     gameOver(): void {
-      background(0,100,0);
+      background(100,0,0);
       fill(0);
-      textSize(100);
+      textSize(70);
       text("Game Over", 50, 300);
     }
 }
@@ -143,6 +149,3 @@ function keyPressed(){
 function draw(){
   game.activeFunction();
 }
-
-
-
