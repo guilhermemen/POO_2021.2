@@ -7,7 +7,7 @@ class Fone{
         this.number = number;
     }
 
-    validate(number: string): boolean {
+   public validate(number: string): boolean {
         let permit: string[] = ["0","1","2","3","4","5",
         "6","7","8","9","(",")","."];
         for(let i of number){
