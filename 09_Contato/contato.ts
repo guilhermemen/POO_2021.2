@@ -1,4 +1,4 @@
-class fone{
+class Fone{
     id: string;
     number: string;
 
@@ -43,7 +43,7 @@ class Contato{
     }
 
     add(fone: Fone){
-        if(Fone.validate(fone.getNumber())==true){
+        if(Fone.validate(fone.getNumber()) == true){
             this.fones.push(fone);
         }else{
             console.log("número invalido, tente novamente");
