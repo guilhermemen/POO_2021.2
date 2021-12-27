@@ -148,3 +148,7 @@ pet.sleep();
 console.log(pet.toString());
 
 const readline = require('readline-sync');
+console.log('qual o seu nome');
+readline.question();
+let nome = readline.question();
+console.log('meu nome é ' + nome);
