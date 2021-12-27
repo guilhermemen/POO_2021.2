@@ -54,7 +54,7 @@ class sala{
         return false;
     }
 
-    reserva(pes: Cliente, cadeira: number): boolean {
+    reserva(pes: cliente, cadeira: number): boolean {
         if(cadeira > this.cadeiras.length || cadeira < 0){
             console.log("essa cadeira não existe");
         }if (this.cadeiras[cadeira] != null){
