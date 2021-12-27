@@ -27,7 +27,7 @@ class Trampoline{
 
     play(): boolean{
         if(this.waiting == null){
-            console.log('não tem crianças eperando');
+            console.log('não tem crianças esperando');
             return false;
         }
         this.playing.push(this.waiting.shift());
