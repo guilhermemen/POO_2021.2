@@ -33,7 +33,12 @@ class pet extends Animal{
     }
 
     brincar(){
-        console.log("brincando com " + this.nome)
+        if(this.isAlive()){
+            console.log("brincando com " + this.nome)
+        }else{
+            console.log("me enterra logo")
+        }
+        
     }
 
     toString():string{
@@ -49,6 +54,26 @@ class cat extends pet{
          this.life = life; 
      }
 
+     brincar(){
+         if(this.isAlive()){
+             console.log("brancando com " + this.nome);
+         }else {
+             console.log("espero ter uma vida nova na proxima")
+         }
+     }
+
+     kill(){
+         if(!this.isAlive()){
+             console.log("esse gato partiu dessa pra melhor")
+         }else if(this.life > 1){
+             console.log("perdeu uma vida")
+             this.life--;
+         }else{
+            this.life--;
+            super.kill();
+         }
+     }
+
      toString():string{
          return super.toString() + ": " + this.life;
      }
@@ -59,6 +84,11 @@ function main() {
     let Odi = new cat("Odi", 2);
     console.log(Odi.toString());
     Odi.brincar();
+    Odi.kill();
+    Odi.kill();
+    Odi.kill();
+    Odi.kill();
+    Odi.kill();
     Odi.kill();
     Odi.brincar();
     console.log(Odi.toString()); 
