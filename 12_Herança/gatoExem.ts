@@ -47,7 +47,7 @@ class pet extends Animal{
 }
 
 class cat extends pet{
-     private life: number;
+     protected life: number;
 
      constructor(nome: string, life: number){
          super(nome, "gato");
