@@ -29,14 +29,6 @@ class Cinema{
         this.nomes.set(pessoa.nome, lugar);
     }
 
-    //findKey(nome: number): number {
-    //    for (let key, pessoa of this.assentos){
-    //        if (pessoa.nome == nome){
-    //            return key;
-    //        }
-    //    }
-    //    return -1;
-    //}
 
     cancelar(nome: string){
         if (!this.nomes.has(nome)){
