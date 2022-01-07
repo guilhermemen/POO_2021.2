@@ -9,6 +9,7 @@ abstract class FormaGeometrica{
 
 class Quadrado extends FormaGeometrica{
     protected lado: number;
+    
     constructor(lado: number){
         super("Quadrado");
         this.lado = lado; 
@@ -34,9 +35,9 @@ class Retangulo extends FormaGeometrica{
     protected larg: number;
     protected altura: number;
 
-    constructor(raio: number, altura: number){
+    constructor(larg: number, altura: number){
         super("Retangulo");
-        this.larg = this.larg;
+        this.larg = larg;
         this.altura = altura;
     }
     getArea(): number{
