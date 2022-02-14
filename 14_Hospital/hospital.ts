@@ -98,21 +98,35 @@ class hospital{
                 this.medicos.set(chave, medico)
     }
 
-    vincular(paciente: string, medico: string){
-        let pa: Paciente | undefined = this.pacientes.get(paciente);
-        let me: Medico | undefined = this.medicos.get(medico);
+    vincular(nomePaciente: string, nomeMedico: string){
+       // let pa: Paciente | undefined = this.pacientes.get(paciente);
+       // let me: Medico | undefined = this.medicos.get(medico);
 
-        if (pa !== undefined && me !== undefined) {
-            pa.addMedico(me);
-        }
+       // if (pa !== undefined && me !== undefined) {
+       //     pa.addMedico(me);
+       // }
+
+       this.getPaciente(nomePaciente).addMedico(this.getMedico(nomeMedico));
     } 
 
-    getPaciente(paciente: string){
-        return this.pacientes.get(paciente)
+    desvincular(nomePaciente: string, nomeMedico: string){
+        this.getPaciente(nomePaciente).rmvMedico(nomeMedico);
     }
 
-    getMedico(medico: string){
+    getPaciente(nome: string){
+        let paciente = this.pacientes.get(nome);
+        if (paciente === undefined)
+            throw new Error("Paciente não existe.");
+            return paciente
         
+    }
+
+    getMedico(nome: string){
+        let medico = this.medicos.get(nome);
+        if (medico === undefined)
+        throw new Error("Medico não existe.");
+        return medico
+
     }
 
     toString(): string{
