@@ -98,19 +98,25 @@ class hospital{
                 this.medicos.set(chave, medico)
     }
 
-    
+    toString(): string{
+        let pacientes = [...this.pacientes.keys()];
+        let medico = [...this.medicos.keys()];
+        return "Alunos: " + pacientes.join(", ") + 
+        "\nMedicos: " + medico.join(", ");
+        
+    }
 }
 
-let Mario = new Medico("Dr.Mario");
-let Raul = new Paciente("Raul")
-let Paula = new Paciente("Paula")
+//let Mario = new Medico("Dr.Mario");
+//let Raul = new Paciente("Raul")
+//let Paula = new Paciente("Paula")
 
-Mario.addPaciente(Raul);
-Mario.addPaciente(Paula);
+//Mario.addPaciente(Raul);
+//Mario.addPaciente(Paula);
 
-console.log(" " + Mario);
-console.log(" " + Raul);
-console.log(" " + Paula);
+//console.log(" " + Mario);
+//console.log(" " + Raul);
+//console.log(" " + Paula);
 
-Mario.rmvpaciente("Paula")
-Paula.rmvMedico("Dr.Mario ")
+//Mario.rmvpaciente("Paula")
+//Paula.rmvMedico("Dr.Mario ")
