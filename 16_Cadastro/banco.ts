@@ -8,7 +8,7 @@ abstract class Account{
         this.id = id;
         this.balance = 0;
         this.ClientId = ClientId;
-        this.type = this.ClientId;
+        this.type = "CC" || "CP";
     }
 
     public attMensal(): void{

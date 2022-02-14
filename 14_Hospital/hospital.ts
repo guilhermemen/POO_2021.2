@@ -13,13 +13,26 @@ class Medico{
     }
 
     addPaciente(paciente: Paciente): void{
-        if(this.pacientes.has(paciente.getNome())){
-            return;
-        this.pacientes.set(paciente.getNome(), paciente)
-        paciente.addMedico(this)
-        }
+        if(this.pacientes.has(paciente.getNome()))
+         return
+            this.pacientes.set(paciente.getNome(), paciente)
+            paciente.addMedico(this);
+        
     }
+
+    rmvpaciente(key: string){
+        //key = paciente
+       // if(this.pacientes.has(paciente)){
+       // this.pacientes.delete(this.pacientes.get(paciente));
+       // paciente.rmvMedico(this);
+       // }
+       if(!this.pacientes.has(key))
+       return
+       let paciente = this.pacientes.get(key)
+    }
+
     toString(): string{
+        //keys percorre a estrutura e passa por todas as chaves que exsite
       let keys = this.pacientes.keys();
       return this.nome + " [" + [...keys].join(", ") + "]"
     }
@@ -39,11 +52,10 @@ class Paciente{
     }
 
     addMedico(medico: Medico): void{
-        if(this.medicos.has(medico.getNome())){
-            return;
+        if(this.medicos.has(medico.getNome()))
             this.medicos.set(medico.getNome(), medico);
             medico.addPaciente(this);
-        }
+            return;
     }
 
     toString(){
@@ -52,13 +64,13 @@ class Paciente{
       }
 }
 
-let Mario = new Paciente("Mario");
+let Mario = new Medico("Mario");
 let Raul = new Paciente("Raul")
-let Paula = new Medico("Paula")
+let Paula = new Paciente("Paula")
 
-Paula.addPaciente(Raul);
-Paula.addPaciente(Mario);
+Mario.addPaciente(Raul);
+Mario.addPaciente(Paula);
 
-console.log(" " + Paula);
-console.log(" " + Raul);
 console.log(" " + Mario);
+console.log(" " + Raul);
+console.log(" " + Paula);
