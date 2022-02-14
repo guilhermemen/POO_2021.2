@@ -20,14 +20,18 @@ class Medico{
         
     }
 
-    rmvpaciente(paciente: string): void{
+    rmvpaciente(key: string): void{
     
-      if(!this.pacientes.has(paciente))
-      return
-      this.pacientes.get(paciente);
-      this.pacientes.delete(paciente);
-      paciente.rmvMedico(this);
-
+     // if(!this.pacientes.has(paciente))
+     //    return
+     //       this.pacientes.get(paciente);
+     //       this.pacientes.delete(paciente);
+     //       paciente.rmvMedico(this.nome);
+        let paciente: Paciente | undefined = this.pacientes.get(key)
+            if (paciente !== undefined) {
+                this.pacientes.delete(key)
+                paciente.rmvMedico(this.nome);
+        }
     }
 
     toString(): string{
@@ -52,9 +56,17 @@ class Paciente{
 
     addMedico(medico: Medico): void{
         if(this.medicos.has(medico.getNome()))
-        return;
+            return;
             this.medicos.set(medico.getNome(), medico);
             medico.addPaciente(this);
+    }
+
+    rmvMedico(key: string): void{
+       let medico: Medico | undefined = this.medicos.get(key);
+            if (medico !== undefined) {
+                this.medicos.delete(key);
+                medico.rmvpaciente(this.nome);
+            }
     }
 
     toString(){
@@ -63,7 +75,7 @@ class Paciente{
       }
 }
 
-let Mario = new Medico("Mario");
+let Mario = new Medico("Dr.Mario");
 let Raul = new Paciente("Raul")
 let Paula = new Paciente("Paula")
 
@@ -73,3 +85,6 @@ Mario.addPaciente(Paula);
 console.log(" " + Mario);
 console.log(" " + Raul);
 console.log(" " + Paula);
+
+Mario.rmvpaciente("Paula")
+Paula.rmvMedico("Dr.Mario")
