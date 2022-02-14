@@ -20,15 +20,14 @@ class Medico{
         
     }
 
-    rmvpaciente(key: string){
-        //key = paciente
-       // if(this.pacientes.has(paciente)){
-       // this.pacientes.delete(this.pacientes.get(paciente));
-       // paciente.rmvMedico(this);
-       // }
-       if(!this.pacientes.has(key))
-       return
-       let paciente = this.pacientes.get(key)
+    rmvpaciente(paciente: string): void{
+    
+      if(!this.pacientes.has(paciente))
+      return
+      this.pacientes.get(paciente);
+      this.pacientes.delete(paciente);
+      paciente.rmvMedico(this);
+
     }
 
     toString(): string{
@@ -53,9 +52,9 @@ class Paciente{
 
     addMedico(medico: Medico): void{
         if(this.medicos.has(medico.getNome()))
+        return;
             this.medicos.set(medico.getNome(), medico);
             medico.addPaciente(this);
-            return;
     }
 
     toString(){
