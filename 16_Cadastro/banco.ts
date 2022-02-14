@@ -76,7 +76,8 @@ class SavingAccount extends Account{
     }
 
     public attMensal(): void{
-        this.balance * 0.01;
+        let conta = this.balance * 0.01;
+        conta += this.balance
     }
 
 }
@@ -146,7 +147,12 @@ class BankAgency{
     }
 
     withdraw(idConta: number, valor: number){
-
+        if(this.clients.has(idConta)){
+            this.accounts.get(idConta);
+        }
+        if(this.accounts.get(idConta) != null){
+            this.accounts.depositar(valor);
+        }
     }
 
     depositar(idConta: number, valor: number){
