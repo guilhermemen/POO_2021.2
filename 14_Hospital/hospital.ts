@@ -98,15 +98,44 @@ class hospital{
                 this.medicos.set(chave, medico)
     }
 
+    vincular(paciente: string, medico: string){
+        let pa: Paciente | undefined = this.pacientes.get(paciente);
+        let me: Medico | undefined = this.medicos.get(medico);
+
+        if (pa !== undefined && me !== undefined) {
+            pa.addMedico(me);
+        }
+    } 
+
+    getPaciente(paciente: string){
+        return this.pacientes.get(paciente)
+    }
+
+    getMedico(medico: string){
+        
+    }
+
     toString(): string{
         let pacientes = [...this.pacientes.keys()];
         let medico = [...this.medicos.keys()];
-        return "Alunos: " + pacientes.join(", ") + 
-        "\nMedicos: " + medico.join(", ");
+            return "Alunos: [" + pacientes.join(", ") + " ]" + 
+        "\nMedicos: [" + medico.join(", ") + "]";
         
     }
 }
 
+let hos = new hospital();
+
+hos.addPaciente(new Paciente("Terry"));
+hos.addPaciente(new Paciente("Vinicius"));
+hos.addPaciente(new Paciente("Clara"));
+hos.addPaciente(new Paciente("Emilli"));
+
+hos.addMedico(new Medico("Dr.Marcus"));
+hos.addMedico(new Medico("Dr.Priscila"));
+hos.addMedico(new Medico("Dr.Fabiana"));
+
+console.log(hos.toString());
 //let Mario = new Medico("Dr.Mario");
 //let Raul = new Paciente("Raul")
 //let Paula = new Paciente("Paula")
