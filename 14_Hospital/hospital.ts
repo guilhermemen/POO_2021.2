@@ -75,6 +75,32 @@ class Paciente{
       }
 }
 
+class hospital{
+    private pacientes: Map<string,Paciente>
+    private medicos: Map<string, Medico>
+
+    constructor(){
+        this.pacientes = new Map<string,Paciente>();
+        this.medicos = new Map<string, Medico>();
+    }
+
+    addPaciente(paciente: Paciente): void{
+        let chave = paciente.getNome();
+            if(this.pacientes.has(chave))
+                return;
+                this.pacientes.set(chave, paciente)
+    }
+
+    addMedico(medico: Medico): void{
+        let chave = medico.getNome();
+            if(this.medicos.has(chave))
+                return
+                this.medicos.set(chave, medico)
+    }
+
+    
+}
+
 let Mario = new Medico("Dr.Mario");
 let Raul = new Paciente("Raul")
 let Paula = new Paciente("Paula")
@@ -87,4 +113,4 @@ console.log(" " + Raul);
 console.log(" " + Paula);
 
 Mario.rmvpaciente("Paula")
-Paula.rmvMedico("Dr.Mario")
+Paula.rmvMedico("Dr.Mario ")
