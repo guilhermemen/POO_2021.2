@@ -2,10 +2,12 @@ class Medico{
 
     protected nome: string;
     protected pacientes: Map<string, Paciente>;
+    protected especialidade: string;
 
-    constructor(nome: string){
+    constructor(nome: string, especialidade: string){
         this.nome = nome;
         this.pacientes = new Map<string, Paciente>();
+        this.especialidade = especialidade
     }
 
     getNome(){
@@ -45,9 +47,12 @@ class Paciente{
 
     protected nome: string;
     protected medicos: Map<string, Medico>;
-    constructor(nome: string){
+    protected enfermidade: string;
+
+    constructor(nome: string, enfermidade: string){
         this.nome = nome;
         this.medicos = new Map<string, Medico>();
+        this.enfermidade = enfermidade;
     }
 
     getNome(){ 
@@ -130,26 +135,32 @@ class hospital{
     }
 
     toString(): string{
-        let pacientes = [...this.pacientes.keys()];
-        let medico = [...this.medicos.keys()];
-            return "Alunos: [" + pacientes.join(", ") + " ]" + 
-        "\nMedicos: [" + medico.join(", ") + "]";
+        let pacientes = [...this.pacientes.values()].map(p => p.toString());
+        let medico = [...this.medicos.values()].map(m => m.toString());
+            return "Pacientes:\n " + pacientes.join("\n") + 
+        "\n Medicos:\n " + medico.join("\n");
         
     }
 }
 
 let hos = new hospital();
 
-hos.addPaciente(new Paciente("Terry"));
-hos.addPaciente(new Paciente("Vinicius"));
-hos.addPaciente(new Paciente("Clara"));
-hos.addPaciente(new Paciente("Emilli"));
+hos.addPaciente(new Paciente("Terry", "braço quebrado"));
+hos.addPaciente(new Paciente("Vinicius","pele irritada"));
+hos.addPaciente(new Paciente("Clara", "gastrite"));
+hos.addPaciente(new Paciente("Emilli", "errupções na pele"));
 
-hos.addMedico(new Medico("Dr.Marcus"));
-hos.addMedico(new Medico("Dr.Priscila"));
-hos.addMedico(new Medico("Dr.Fabiana"));
+hos.addMedico(new Medico("Dr.Marcus", "ortopedista"));
+hos.addMedico(new Medico("Dr.Priscila", "dermatologista"));
+hos.addMedico(new Medico("Dr.Fabiana", "dermatologista"));
+
+hos.vincular("Terry", "Dr.Marcus");
+hos.vincular("Vinicius","Dr.Fabiana");
+hos.vincular("Clara","Dr.Fabiana");
+hos.vincular("Emilli","Dr.Priscila");
 
 console.log(hos.toString());
+
 //let Mario = new Medico("Dr.Mario");
 //let Raul = new Paciente("Raul")
 //let Paula = new Paciente("Paula")
