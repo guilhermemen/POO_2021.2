@@ -32,6 +32,7 @@ class Pet{
         }
     }
 
+    // set controla controla a modificação
     setHungry(value: number): any{
         this.hungry = value;
         if (this.hungry <= 0) {
@@ -100,6 +101,8 @@ class Pet{
         this.diamonds += 0;
         this.age +=2;
     }
+
+    //get controla o acesso
 
     getEnergy(){
         return this.energy;

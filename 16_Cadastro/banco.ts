@@ -5,6 +5,7 @@ abstract class Account{
     type: string; //Conta corrente - CC ou Conta poupança - CP
 
     constructor(id: number, ClientId: string){
+
         this.id = id;
         this.balance = 0;
         this.ClientId = ClientId;
@@ -70,7 +71,6 @@ class CheckingAccount extends Account{
 
 class SavingAccount extends Account{
 
-
     public savingAccount(id: number, ClientId: string){
         super(id, ClientId);
     }
@@ -79,10 +79,10 @@ class SavingAccount extends Account{
         let conta = this.balance * 0.01;
         conta += this.balance
     }
-
 }
 
 class Client {
+
     private ClientId: string
     private account: Account[];
 
@@ -113,11 +113,12 @@ class Client {
 
     toString(){
         //interpolação de strings, coloco valores dentro de uma string de forma direta
-        return '${this.ClientId} [${this.getAccount()}]';
+        return "ID: " + this.ClientId + " ClientId: " + this.ClientId;
     }
 }
 
 class BankAgency{
+
     private clients: Map<string, Client>
     private accounts: Map<number, Account>
     private nextAccountId: number = 0;
@@ -132,27 +133,11 @@ class BankAgency{
         if(!this.clients.has(clientId)){
             this.clients.set(clientId, new Client(clientId));
         } 
-        
-        if(this.clients.get(clientId)){
-            let CC = new CheckingAccount(this.nextAccountId, clientId);
-            let CP = new SavingAccount(this.nextAccountId, clientId);
-
-            this.clients.addAccount(CC);
-            this.clients.addAccount(CP);
-
-            this.accounts.set(CC.getId(), CC);
-            this.accounts.set(CP,getId(), CP)
-        }
         return;
     }
 
     withdraw(idConta: number, valor: number){
-        if(this.clients.has(idConta)){
-            this.accounts.get(idConta);
-        }
-        if(this.accounts.get(idConta) != null){
-            this.accounts.depositar(valor);
-        }
+       
     }
 
     depositar(idConta: number, valor: number){
